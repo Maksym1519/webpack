@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack serve",
+    "build:dev": "webpack",
+    "build:prod": "webpack --node-env=production",
+    "clear": "rd /s /q dist"
   },
   "repository": {
     "type": "git",
@@ -11,5 +14,28 @@
   },
   "author": "Maksym",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "babel-loader": "^9.2.1",
+    "css-loader": "^7.1.2",
+    "html-loader": "^5.1.0",
+    "html-webpack-plugin": "^5.6.3",
+    "image-webpack-loader": "^8.1.0",
+    "mini-css-extract-plugin": "^2.9.2",
+    "postcss": "^8.4.49",
+    "postcss-loader": "^8.1.1",
+    "postcss-preset-env": "^10.1.2",
+    "sass": "^1.83.0",
+    "sass-loader": "^16.0.4",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.2.0"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "normalize.css": "^8.0.1"
+  }
 }

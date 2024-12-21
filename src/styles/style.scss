@@ -1,0 +1,26 @@
+
+body {
+    width: 100%;
+    user-select: none;
+}
+
+.container {
+    padding: 0 40px;
+}
+
+.title {
+    font-size: 72px;
+    color: var(--green);
+    margin: 0 auto;
+    text-align: center;
+    user-select: none;
+    font-family: Roboto;
+}
+
+.image {
+    width: 300px;
+    height: 500px;
+    background-image: url('images/img4.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
