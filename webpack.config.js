@@ -14,6 +14,7 @@ module.exports = {
   devtool,
   devServer: {
     open: true,
+    historyApiFallback: true
   },
   entry: ["@babel/polyfill", path.resolve(__dirname, "src", "index.js")],
   output: {
@@ -24,7 +25,12 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      filename: "index.html",
       template: path.resolve(__dirname, "src", "index.html"),
+    }),
+    new HtmlWebpackPlugin({
+      filename: "pages/about/about.html",
+      template: path.resolve(__dirname, "src", "pages","about","about.html"),
     }),
     new MiniCssExtractPlugin({
       filename: "[name].[contenthash].css",
