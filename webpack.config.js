@@ -7,6 +7,7 @@ const prefix = require("postcss-preset-env");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const SpriteLoaderPlugin = require("svg-sprite-loader/plugin");
 
 module.exports = {
   mode,
@@ -14,14 +15,14 @@ module.exports = {
   devtool,
   devServer: {
     open: true,
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   entry: ["@babel/polyfill", path.resolve(__dirname, "src", "index.js")],
   output: {
     path: path.resolve(__dirname, "dist"),
     clean: true,
     filename: "[name].[contenthash].js",
-    assetModuleFilename: "assets/[hash][ext]",
+    assetModuleFilename: "assets/[hash][ext]"
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -30,11 +31,12 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       filename: "pages/about/about.html",
-      template: path.resolve(__dirname, "src", "pages","about","about.html"),
+      template: path.resolve(__dirname, "src", "pages", "about", "about.html"),
     }),
     new MiniCssExtractPlugin({
       filename: "[name].[contenthash].css",
     }),
+    new SpriteLoaderPlugin(),
   ],
   module: {
     rules: [
@@ -76,8 +78,32 @@ module.exports = {
           filename: "fonts/[name][ext]",
         },
       },
+
       {
-        test: /\.(jpe?g|png|webp|gif|svg)$/i,
+        test: /\.svg$/,
+        include: path.resolve(__dirname, "images/sprite.svg"),
+        use: [
+          {
+            loader: "svg-sprite-loader",
+            options: {
+              extract: true,
+            },
+          },
+          {
+            loader: "image-webpack-loader",
+            options: {
+              svgo: {
+                plugins: [
+                  { name: "removeViewBox", active: false },
+                  { name: "cleanupIDs", active: false }
+                ],
+              },
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(jpe?g|png|webp|gif)$/,
         use: [
           {
             loader: "image-webpack-loader",
@@ -99,6 +125,7 @@ module.exports = {
               webp: {
                 quality: 75,
               },
+              symbolId: "[name]-[hash]",
             },
           },
         ],
